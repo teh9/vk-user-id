@@ -77,3 +77,10 @@ $(document).on('click', '.vk-button', () => {
 getUserId = () => {
     return  $('#l_aud > a').attr('href').replace('/audios', '');
 }
+
+/**
+ * Reloading page for avoiding bug with link "My page".
+ */
+$(document).on('click', '#l_pr', () => {
+    window.location.reload();
+});
