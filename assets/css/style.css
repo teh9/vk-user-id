@@ -1,0 +1,31 @@
+#buttonIdBlock {
+    position: relative;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.vk-button {
+    color: #346297;
+    font-family: inherit;
+    background-color: #e5ebf1;
+    border: none;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    max-width: 100%;
+    cursor: pointer;
+    transition: .5s linear;
+}
+
+.vk-button:hover {
+    background-color: #dee4ec;
+}
+
+.vk-button-text {
+    line-height: 31px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 13px;
+    text-align: center;
+}
