@@ -1,6 +1,6 @@
 # User identificator getter Chrome extension for VKcom
 
-[![Github All Releases](https://img.shields.io/github/downloads/teh9/vk-user-id/total)]()
+[![Github All Releases](https://img.shields.io/github/downloads/teh9/vk-user-id/total?style=flat-square)]()
 
 Simple Google Chrome extension to get user id in social network VK.com
 
