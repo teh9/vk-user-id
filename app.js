@@ -108,5 +108,3 @@ getUserId = () => {
 
     return pageUserId.replace('/wall', '');
 }
-
-//TODO implement copy button
