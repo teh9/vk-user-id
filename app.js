@@ -79,10 +79,6 @@ $(document).on('click', '.vk-button', () => {
     }, 700)
 });
 
-copyId = () => {
-
-}
-
 /**
  * Reloading page for avoiding bug with link "My page".
  */
