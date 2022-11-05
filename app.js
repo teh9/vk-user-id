@@ -1,6 +1,7 @@
 let state = true;
 let showState = false;
 let nameState = '';
+let copyState = false;
 
 window.onload = function () {
     checkUrl();
@@ -17,6 +18,7 @@ checkUrl = () => {
             if (showState !== true || nameState !== userName.text()) {
                 showState = true;
                 nameState = userName.text()
+                copyState = false;
                 renderButton();
             }
         } else {
@@ -63,15 +65,33 @@ prepareButton = () => {
  */
 $(document).on('click', '.vk-button', () => {
     let buttonText = $(".vk-button > span");
+
+    if (copyState) { return navigator.clipboard.writeText(buttonText.attr('user-id')); } // Copy user id onclick
+
     buttonText.text('• • •'); // Showing loading effect
 
     const userId = $('.vk-button-text').attr('user-id');
 
     // Here we're making delay in 0.7s for query effect :)
     setTimeout( function () {
-        buttonText.text(userId); // Drawing user id.
-        $(".vk-button").prop('disabled', true);
+        buttonText.text(userId+' 💾'); // Drawing user id.
+        copyState = true;
     }, 700)
+});
+
+copyId = () => {
+
+}
+
+/**
+ * Reloading page for avoiding bug with link "My page".
+ */
+$(document).on('click', '#l_pr', () => {
+    const link = $("#l_pr > a").attr('href');
+
+    if (window.location.pathname === link) {
+        window.location.href = link;
+    }
 });
 
 /**
