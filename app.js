@@ -1,5 +1,6 @@
 let state = true;
 let showState = false;
+let nameState = '';
 
 window.onload = function () {
     checkUrl();
@@ -10,9 +11,12 @@ window.onload = function () {
  */
 checkUrl = () => {
     setTimeout(function() {
-        if ($('.ProfileHeader').length !== 0) {
-            if (showState !== true) {
+        if ($('.ProfileHeader').length !== 0) { // Checking is that page Profile
+            const userName = $(".OwnerPageName"); // Getting username
+
+            if (showState !== true || nameState !== userName.text()) {
                 showState = true;
+                nameState = userName.text()
                 renderButton();
             }
         } else {
@@ -22,17 +26,15 @@ checkUrl = () => {
         if (state) {
             checkUrl();
         }
-    }, 1000)
+    }, 500)
 }
 
 /**
  * Rendering button beside other buttons in profile header.
- *
- * @param userId
  */
-renderButton = (userId) => {
+function renderButton () {
     const buttonList = $('.ProfileHeaderActions__buttons');
-    buttonList.prepend(prepareButton(userId));
+    buttonList.prepend(prepareButton());
 }
 
 /**
@@ -41,12 +43,14 @@ renderButton = (userId) => {
  * @returns {string}
  */
 prepareButton = () => {
+    const buttonState = getUserId();
+
     let html = '';
 
     html += '<div id="buttonIdBlock">';
-    html += '<button class="vk-button">';
+    html += (!buttonState) ? '<button class="vk-button" disabled>' : '<button class="vk-button">';
     html += '<span class="vk-button-text" user-id="'+getUserId()+'">';
-    html += '🪄 Показать ID';
+    html += (!buttonState) ? '⛔ Недоступно' : '🪄 Показать ID';
     html += '</span>';
     html += '</button>';
     html += '</div>';
@@ -63,10 +67,11 @@ $(document).on('click', '.vk-button', () => {
 
     const userId = $('.vk-button-text').attr('user-id');
 
-    // Here we're making delay in 1s for query effect :)
+    // Here we're making delay in 0.7s for query effect :)
     setTimeout( function () {
         buttonText.text(userId); // Drawing user id.
-    }, 1000)
+        $(".vk-button").prop('disabled', true);
+    }, 700)
 });
 
 /**
@@ -75,16 +80,13 @@ $(document).on('click', '.vk-button', () => {
  * @returns {*|jQuery}
  */
 getUserId = () => {
-    return  $('#l_aud > a').attr('href').replace('/audios', '');
+    let pageUserId = $('#wall_tabs > li > a').attr('href');
+
+    if (pageUserId === undefined) return false;
+
+    if (pageUserId.includes("?own")) return pageUserId.replace('?own=1', '').replace('/wall', '');
+
+    return pageUserId.replace('/wall', '');
 }
 
-/**
- * Reloading page for avoiding bug with link "My page".
- */
-$(document).on('click', '#l_pr', () => {
-    const link = $("#l_pr > a").attr('href');
-
-    if (window.location.pathname === link) {
-        window.location.href = link;
-    }
-});
+//TODO implement copy button
