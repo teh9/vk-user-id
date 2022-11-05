@@ -82,5 +82,9 @@ getUserId = () => {
  * Reloading page for avoiding bug with link "My page".
  */
 $(document).on('click', '#l_pr', () => {
-    window.location.reload();
+    const link = $("#l_pr > a").attr('href');
+
+    if (window.location.pathname === link) {
+        window.location.href = link;
+    }
 });
